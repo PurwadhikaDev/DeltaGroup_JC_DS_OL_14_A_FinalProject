@@ -93,12 +93,12 @@ Semua informasi yang dapat mengidentifikasi secara pribadi telah dihapus dari da
 
 ## Data Cleaning
 
-Masih terdapat data yang kosong (nan) pada tiap fitur/kolom dan duplikat data. Selanjutnya, kita akan membersihkan dataset menjadi siap pakai agar siap dipakai untuk melakukan analisat terhadap masalah dan juga pembuatan model machine learning.
+Masih terdapat data yang kosong (nan) pada tiap fitur/kolom dan duplikat data. Berikut data cleaning yang dilakukan :
+- Handling Duplicates Data
 
-### Handling Duplicates Data
 Dikarenakan pada tahap ini masih ada duplikat data sebanyak 31994, maka treatment yang akan dilakukan adalah mengambil contoh pertama dari baris-baris duplikat.
 
-### Handling Missing Values
+- Handling Missing Values
 
 **Missing Value**
 
@@ -114,24 +114,48 @@ Dikarenakan pada tahap ini masih ada duplikat data sebanyak 31994, maka treatmen
 - Jika tidak ada value dalam kolom `country` maka akan dianggap/diisi tidak diketahui 'unknown'.
 - Missing value pada kolom `children`, maka akan dicari rata-rata pada jumlah anak (children) dan dibulatkan kebawah.
 
-### Handling Unreasonable Data
+- **Handling Unreasonable Data**
 
-Setelah handling missing value dan duplikat data, kita akan checking data-data yang tidak masuk akal. Data yang dimaksud adalah data yang sangat jauh berbeda dari kumpulan data-data yang ada (dianggap outlier). Ada beberapa angka yang sangat besar yang terlihat pada dataset.
-
-**List data yang perlu dicek datanya:**
-- lead_time = waktu kedatangan yang sangat jauh (Berdasarkan aplikasi booking hotel seperti Traveloka dan Trivago, customer hanya dapat memilih tanggal check-in sejauh 365 hari sebelum menginap).
-- stays_in_week_nights = lama hari menginap customer di hari kerja (week day). Dari riset yang dilakukan, tidak ada hotel yang membatasi waktu menginap (stay) selama customer membayar biaya tambahan sesuai jumlah hari tambahan menginap. Oleh karena itu, akan dicari rata-ratanya dan membuat batasan berdasarkan rata-rata.
-- days_in_waiting_list = hari dimana hotel menaruh customer di waiting list hotel (asumsi: karena keterbaasan fasilitas atau jasa). Berdasarkan riset, customer yang ditempatkan di waiting list diengaruhi dengan popularitas suatu tempat, season (musim liburan) dan ketersediannya fasilitas atau jasa. Dikarenakan tidak ada informasi mengenai 3 hal diatas, kami akan membuat asumsi dari rata-rata waiting list.
-- required_car_parking_spaces = jumlah lahan parkir yang dibutuhkan per pesanan. Nantinya kita akan melihat keterkaitan jumlah guest dalam satu pesanan (total dari adults, children dan babies).
-- Cek kembali apakah ada customer yang tidak menginap (stays_in_week_nights + stays_in_weekend_nights = 0)
-- Cek Customer segment yang sekiranya tidak perlu.
+Setelah handling missing value dan duplikat data, kita akan checking data-data yang tidak masuk akal. Data yang dimaksud adalah data yang sangat jauh berbeda dari kumpulan data-data yang ada (dianggap outlier). Ada beberapa angka yang sangat besar yang terlihat pada dataset. Terdapat beberapa data yang perlu dicek seperti lead_time, stays_in_week_nights, days_in_waiting_list, required_car_parking_spaces. Langkah lengkapnya dapat dilihat pada file notebook.
 
 ## EDA
 
-Sebelumnya, kita akan mengecek keseimbangan dataset antara jumlah cancel dengan yang tidak cancel.
+Berikut merupakan EDA yang dilakukan :
+•⁠  ⁠Distribusi Jumlah Parking Space
+•⁠  ⁠⁠Presentasi Cancel/Not Cancel
+•⁠  ⁠⁠Perbandingan Jumlah Pembatalan antar City Hotel & Resort Hotel
+•⁠  ⁠⁠Distribusi Lama Menginap
+•⁠  ⁠⁠Jumlah Pemesanan di Tiap Jenis Hotel berdasarkan Market Segment
+•⁠  ⁠⁠Perbandingan Customer Segment yang Melakukan Cancel
+•⁠  ⁠⁠Persentase Pembatalan per Jenis Hotel berdasarkan Market Segmen
 
-Diketahui dataset tidak seimbang, 72.7% data adalah customer yang tidak melakukan pembatalan. Sedangkan data customer yang melakukan pembatalan hanya sebesar 27.3%.
+## Tableau Dashboard
 
-Setelah data dibersihkan kita dapat memulai analisis datanya, kita akan mulai dengan menghitung berapa jumlah pemesanan yang dibatalkan per hotel (City dan Resort).
+![WhatsApp Image 2024-09-27 at 10 56 46 PM](https://github.com/user-attachments/assets/f22b14ea-e6e6-4796-87c8-bbffb5c675a2)
 
-### Berapa banyak pemesanan yang dibatalkan?
+## Modelling
+
+Disini digunakan 5 pemodelan untuk mengetahui model prediksi terbaik untuk projek ini.
+
+- Logistic Regression
+- KNN
+- Decision Tree
+- Random Forest
+- XGBoost
+
+**Implementation Model:**
+
+Pada book ini kami merekomendasikan 2 pilihan yang dapat dipilih oleh stakeholder:
+
+- Model akan dipakai H-1 kedatangan. Kelebihan: Bisa mempersempit kemungkinan pembatalan.
+Kekurangan: Kurangnya waktu untuk menjual kamar kembali jika diprediksi cancel.
+- H-7 kedatangan. Kelebihannya: mempunyai cukup waktu untuk menjual kembali kamar jika cancel. Kekurangannya: memungkinkan terjadinya double book jika false positive akibat customer checkin.
+
+**Rekomendasi**
+
+Hal-hal yang bisa dilakukan untuk mengembangkan project dan modelnya lebih baik lagi :
+
+- Mencoba model dengan testing data atau dataset lainnya yang lebih besar.
+- Parameter tuning untuk KNN yang lebih baik.
+- Meskipun model dengan akurasi 100% sangat baik, ini dapat menunjukkan bahwa model mungkin overfit pada data pelatihan. Pertimbangkan untuk menyederhanakan model dengan mengurangi kompleksitas (misalnya, mengurangi kedalaman pohon di Random Forest atau Decision Tree).
+- Lakukan analisis terhadap feature importance dari model yang Anda gunakan (terutama XGBoost dan Random Forest) untuk memahami fitur mana yang paling berpengaruh terhadap prediksi.
