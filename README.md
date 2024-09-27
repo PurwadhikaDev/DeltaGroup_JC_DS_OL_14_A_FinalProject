@@ -48,6 +48,12 @@ Karena penting untuk memastikan bahwa sistem tidak melewatkan terlalu banyak pem
 - **F1-Score:** Kombinasi dari precision dan recall.
 Karena jika ingin keseimbangan antara precision dan recall, F1-score adalah matriks yang bisa digunakan untuk dipertimbangkan karena memberikan gambaran yang lebih menyeluruh.
 
+**Project Limitation:**
+
+- lead_time = Berdasarkan aplikasi booking hotel seperti Traveloka dan Trivago, customer hanya dapat memilih tanggal check-in sejauh 365 hari sebelum menginap.
+- stays_in_week_nights = lama hari menginap customer di hari kerja (week day). Dari riset yang dilakukan, tidak ada hotel yang membatasi waktu menginap (stay) selama customer membayar biaya tambahan sesuai jumlah hari tambahan menginap. Oleh karena itu, akan dicari rata-ratanya dan membuat batasan berdasarkan rata-rata.
+- days_in_waiting_list = hari dimana hotel menaruh customer di waiting list hotel (asumsi: karena keterbaasan fasilitas atau jasa). Berdasarkan riset, customer yang ditempatkan di waiting list diengaruhi dengan popularitas suatu tempat, season (musim liburan) dan ketersediannya fasilitas atau jasa. Dikarenakan tidak ada informasi mengenai 3 hal diatas, kami akan membuat asumsi dari rata-rata waiting list.
+
 ## Data Understanding
 
 **Dataset Source**: https://www.kaggle.com/datasets/jessemostipak/hotel-booking-demand?resource=download
@@ -96,13 +102,13 @@ Semua informasi yang dapat mengidentifikasi secara pribadi telah dihapus dari da
 ## Data Cleaning
 
 Masih terdapat data yang kosong (nan) pada tiap fitur/kolom dan duplikat data. Berikut data cleaning yang dilakukan :
-- Handling Duplicates Data
+- **Handling Duplicates Data**
 
 Dikarenakan pada tahap ini masih ada duplikat data sebanyak 31994, maka treatment yang akan dilakukan adalah mengambil contoh pertama dari baris-baris duplikat.
 
-- Handling Missing Values
+- **Handling Missing Values**
 
-**Missing Value**
+_Missing Value_
 
 - Beberapa kolom, seperti `children`, `country`, `agent`,`company`,  berisi nilai yang hilang (nan).
 - Missing value pada kolom `company` adalah yang terbanyak. Sebanyak 112593 baris, berarti 94.31% data missing.
@@ -110,13 +116,13 @@ Dikarenakan pada tahap ini masih ada duplikat data sebanyak 31994, maka treatmen
 - Dan missing value yang tidak banyak berada pada kolom `country` dan `children`, sebesar 488 (0.41%) dan 4 (<0.1%).
 - Pada kolom `meal` terdapat value 'undefined'. Oleh karena itu, value tersebut akan dianggap SC (Self Catering)
   
-**Missing Value Handling**
+_Missing Value Handling_
 - Asumsikan jika tidak ada nilai pada kolom `company`, maka pemesanan mungkin dilakukan oleh customer yang tidak memiliki/tidak dengan atas nama perusahaan (tidak ada company id). Maka akan mengisi missing value dengan '0'.
 - Asumsikan jika tidak ada nilai pada kolom `agent`, maka pemesanan mungkin dilakukan oleh customer mandiri atau tanpa melalui agen (tidak ada agent id). Maka missing value akan diisi dengan '0'.
 - Jika tidak ada value dalam kolom `country` maka akan dianggap/diisi tidak diketahui 'unknown'.
 - Missing value pada kolom `children`, maka akan dicari rata-rata pada jumlah anak (children) dan dibulatkan kebawah.
 
-**Handling Unreasonable Data**
+- **Handling Unreasonable Data**
 
 Setelah handling missing value dan duplikat data, kita akan checking data-data yang tidak masuk akal. Data yang dimaksud adalah data yang sangat jauh berbeda dari kumpulan data-data yang ada (dianggap outlier). Ada beberapa angka yang sangat besar yang terlihat pada dataset. Terdapat beberapa data yang perlu dicek seperti lead_time, stays_in_week_nights, days_in_waiting_list, required_car_parking_spaces. Langkah lengkapnya dapat dilihat pada file notebook.
 
