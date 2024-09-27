@@ -114,7 +114,7 @@ Dikarenakan pada tahap ini masih ada duplikat data sebanyak 31994, maka treatmen
 - Jika tidak ada value dalam kolom `country` maka akan dianggap/diisi tidak diketahui 'unknown'.
 - Missing value pada kolom `children`, maka akan dicari rata-rata pada jumlah anak (children) dan dibulatkan kebawah.
 
-- **Handling Unreasonable Data**
+**Handling Unreasonable Data**
 
 Setelah handling missing value dan duplikat data, kita akan checking data-data yang tidak masuk akal. Data yang dimaksud adalah data yang sangat jauh berbeda dari kumpulan data-data yang ada (dianggap outlier). Ada beberapa angka yang sangat besar yang terlihat pada dataset. Terdapat beberapa data yang perlu dicek seperti lead_time, stays_in_week_nights, days_in_waiting_list, required_car_parking_spaces. Langkah lengkapnya dapat dilihat pada file notebook.
 
