@@ -131,6 +131,8 @@ Berikut merupakan EDA yang dilakukan :
 
 ## Tableau Dashboard
 
+https://public.tableau.com/app/profile/rieval.erlangga.wijanarko/viz/HotelBookingDemandGroupDelta/Dashboard1
+
 ![WhatsApp Image 2024-09-27 at 10 56 46 PM](https://github.com/user-attachments/assets/f22b14ea-e6e6-4796-87c8-bbffb5c675a2)
 
 ## Modelling
