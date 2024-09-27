@@ -1,6 +1,7 @@
 # Hotel Booking Demand Cancellation Prediction
 
-**Oleh** : Delta Group
+**Delta Group**
+**Contributor** : 
 - Adnan Alfath Santoso
 - Febby Putri Milenia Piter
 - Rieval Erlangga Wijanarko
